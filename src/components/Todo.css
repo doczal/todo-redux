@@ -1,0 +1,29 @@
+.todo {
+  background-color: #495257;
+  padding: 15px 20px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.todo:nth-child(even) {
+  background-color: #3f454d;
+}
+
+.todo-status {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #ced0d3;
+  margin-right: 8px;
+  border-radius: 8px;
+}
+
+.todo.complete {
+  text-decoration: line-through;
+  font-style: italic;
+  color: #cccccc;
+}
+
+.todo.complete .todo-status {
+  background-color: #499bf8;
+}
