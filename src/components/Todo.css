@@ -16,6 +16,11 @@
   align-items: center;
 }
 
+.todo-actions {
+  display: flex;
+  align-items: center;
+}
+
 .todo-status {
   display: inline-block;
   width: 16px;
@@ -33,18 +38,4 @@
 
 .todo.complete .todo-status {
   background-color: #499bf8;
-}
-
-.todo-del {
-  border: none;
-  padding: 5px 8px;
-  border-radius: 5px;
-  background-color: rgb(221, 19, 53);
-  color: #ffffff;
-  opacity: 0.6;
-  transition: opacity 0.1s ease-in;
-}
-
-.todo-del:hover {
-  opacity: 1;
 }
