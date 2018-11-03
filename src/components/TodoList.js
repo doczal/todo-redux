@@ -35,6 +35,7 @@ class TodoList extends Component {
 
     this.addTodo = this.addTodo.bind(this);
     this.toggleTodo = this.toggleTodo.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
   }
 
   addTodo(task) {
@@ -64,6 +65,17 @@ class TodoList extends Component {
       todos
     });
   }
+  
+  deleteTodo(id) {
+    console.log('belete');
+    const todos = this.state.todos.filter((todo) => {
+      return todo.id !== id;
+    });
+
+    this.setState({
+      todos
+    });
+  }
 
   render() {
     const todos = this.state.todos.map((todo, index) => (
@@ -72,6 +84,7 @@ class TodoList extends Component {
         complete={todo.complete}
         task={todo.task}
         toggleTodo={() => this.toggleTodo(todo.id)}
+        deleteTodo={() => this.deleteTodo(todo.id)}
       />
     ));
     return (
