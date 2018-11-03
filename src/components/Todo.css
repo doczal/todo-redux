@@ -16,6 +16,7 @@
 .todo-content {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .todo-actions {
@@ -40,4 +41,29 @@
 
 .todo.complete .todo-status {
   background-color: #499bf8;
+}
+
+.todo-edit-form {
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.todo-edit-form input {
+  background-color: transparent;
+  font-size: 16px;
+  color: #ffffff;
+  border: none;
+  border: 1px solid #5c666b;
+  padding: 5px;
+  border-radius: 5px;
+  width: 100%;
+  margin-right: 5px;
+}
+
+.todo-edit-form input:focus {
+  outline: none;
+  border-color: #ffffff;
 }
