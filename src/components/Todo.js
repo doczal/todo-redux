@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import './Todo.css';
 import Button from './Button';
 
-const Todo = ({ task, complete }) => (
+const Todo = ({ task, complete, toggleTodo }) => (
   <li className={`todo ${complete ? 'complete' : ''}`}>
     <div className="todo-content">
-      <div className="todo-status"></div>
+      <div 
+        className="todo-status"
+        onClick={toggleTodo}
+      >
+      </div>
       { task }
     </div>
     <div className="todo-actions">

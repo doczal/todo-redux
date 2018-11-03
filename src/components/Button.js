@@ -4,7 +4,7 @@ import './Button.css';
 const Button = ({ color, children }) => (
   <button
     className="btn"
-    style={{ 'background-color': color }}
+    style={{ 'backgroundColor': color }}
   >
     { children }
   </button>
