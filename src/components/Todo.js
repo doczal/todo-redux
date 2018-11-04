@@ -65,7 +65,9 @@ class Todo extends Component {
               onClick={toggleTodo}
             >
             </div>
-            { task }
+            <div className="todo-text">
+              { task }
+            </div>
           </div>
         )}
         <div className="todo-actions">

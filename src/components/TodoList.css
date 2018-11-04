@@ -3,6 +3,11 @@
   max-width: 720px;
 }
 
+.todo-list-title {
+  color: #ffffff;
+  font-weight: normal;
+}
+
 .todo-list {
   list-style: none;
   padding-left: 0;
@@ -10,4 +15,25 @@
   flex-direction: column;
   margin: 0;
   font-size: 16px;
+}
+
+.todo-list-container header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.todo-filters {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  
+}
+
+.todo-filters span {
+  color:#cccccc;
+  font-size: 12px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './TodoList.css';
 import Todo from './Todo';
 import TodoForm from './TodoForm';
+import Button from './Button';
 
 class TodoList extends Component {
   constructor(props) {
@@ -108,6 +109,18 @@ class TodoList extends Component {
     ));
     return (
       <div className="todo-list-container">
+        <header>
+          <h1 className="todo-list-title">ToDo List</h1>
+          <div className="todo-filters">
+            <span>Filters:</span>
+            <Button 
+              color='#499bf8'
+            >
+              Show All
+            </Button>
+          </div>
+        </header>
+        
         <TodoForm 
           handleSubmit={this.addTodo}
         />

@@ -16,7 +16,9 @@
 .todo-content {
   display: flex;
   align-items: center;
-  width: 100%;
+  /* width: 100%; */
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 .todo-actions {
@@ -33,7 +35,14 @@
   border-radius: 8px;
 }
 
-.todo.complete .todo-content {
+.todo-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.todo.complete .todo-text {
   text-decoration: line-through;
   font-style: italic;
   color: #cccccc;

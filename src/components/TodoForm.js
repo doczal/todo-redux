@@ -41,7 +41,7 @@ class TodoForm extends Component {
             value={this.state.input}
             onChange={(e) => this.handleChange(e.target.value)}
           />
-          <Button color='#31da77'>Add Todo</Button>
+          <Button color='#1eb85e'>Add Todo</Button>
         </form>
       </div>
     );
