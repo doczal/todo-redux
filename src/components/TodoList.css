@@ -6,6 +6,7 @@
 .todo-list-title {
   color: #ffffff;
   font-weight: normal;
+  text-transform: uppercase;
 }
 
 .todo-list {

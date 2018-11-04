@@ -10,6 +10,7 @@ class TodoList extends Component {
 
     this.state = {
       id: 4,
+      showAll: true,
       todos: [
         {
           task: 'Read a book',
@@ -38,6 +39,7 @@ class TodoList extends Component {
     this.toggleTodo = this.toggleTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
     this.updateTodo = this.updateTodo.bind(this);
+    this.toggleFilter = this.toggleFilter.bind(this);
   }
 
   addTodo(task) {
@@ -95,8 +97,22 @@ class TodoList extends Component {
     });
   }
 
+  toggleFilter() {
+    this.setState({
+      showAll: !this.state.showAll
+    });
+  }
+
   render() {
-    const todos = this.state.todos.map((todo, index) => (
+
+    const { showAll } = this.state;
+    const todos = this.state.todos.filter((todo) => {
+      if(showAll) {
+        return todo;
+      } else {
+        return todo.complete !== true;
+      }
+    }).map((todo) => (
       <Todo
         key={todo.id}
         id={todo.id}
@@ -107,16 +123,18 @@ class TodoList extends Component {
         updateTodo={this.updateTodo}
       />
     ));
+
     return (
       <div className="todo-list-container">
         <header>
           <h1 className="todo-list-title">ToDo List</h1>
           <div className="todo-filters">
-            <span>Filters:</span>
+            <span>Filter</span>
             <Button 
               color='#499bf8'
+              onClick={this.toggleFilter}
             >
-              Show All
+              {showAll ? 'Show Complete' : 'Show All'}
             </Button>
           </div>
         </header>
