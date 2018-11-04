@@ -40,7 +40,7 @@ class Todo extends Component {
 
   render() {
     const { task, complete, toggleTodo, deleteTodo } = this.props;
-    const { value, edit } = this.state;
+    const { edit } = this.state;
     return (
       <li className={`todo ${complete ? 'complete' : ''}`}>
         

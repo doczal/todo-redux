@@ -3,36 +3,38 @@ import './TodoList.css';
 import Todo from './Todo';
 import TodoForm from './TodoForm';
 import Button from './Button';
+import * as apiCalls from '../api.js';
 
 class TodoList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      id: 4,
+      //id: 4,
       showAll: true,
-      todos: [
-        {
-          task: 'Read a book',
-          complete: false,
-          id: 0,
-        },
-        {
-          task: 'Do the laundry',
-          complete: false,
-          id: 1,
-        },
-        {
-          task: 'Walk the dog',
-          complete: true,
-          id: 2,
-        },
-        {
-          task: 'Kill all',
-          complete: false,
-          id: 3,
-        },
-      ],
+      todos: []
+      // todos: [
+      //   {
+      //     task: 'Read a book',
+      //     complete: false,
+      //     id: 0,
+      //   },
+      //   {
+      //     task: 'Do the laundry',
+      //     complete: false,
+      //     id: 1,
+      //   },
+      //   {
+      //     task: 'Walk the dog',
+      //     complete: true,
+      //     id: 2,
+      //   },
+      //   {
+      //     task: 'Kill all',
+      //     complete: false,
+      //     id: 3,
+      //   },
+      // ],
     };
 
     this.addTodo = this.addTodo.bind(this);
@@ -42,59 +44,82 @@ class TodoList extends Component {
     this.toggleFilter = this.toggleFilter.bind(this);
   }
 
-  addTodo(task) {
-    const todo = {
-      id: this.state.id,
-      task,
-      complete: false
-    };
-    this.setState({
-      id: this.state.id + 1,
-      todos: [...this.state.todos, todo]
-    });
+  componentDidMount() {
+    apiCalls.getTodos()
+      .then((todos) => {
+        this.setState({
+          todos
+        });
+      });
   }
 
-  toggleTodo(id) {
-    const todos = this.state.todos.map((todo) => {
-      if(todo.id === id) {
-        return {
-          ...todo,
-          complete: !todo.complete,
-        }
-      }
-      return todo;
-    });
+  addTodo(task) {
+    // const todo = {
+    //   id: this.state.id,
+    //   task,
+    //   complete: false
+    // };
+    apiCalls.addTodo(task)
+      .then((todo) => {
+        this.setState({
+          todos: [...this.state.todos, todo]
+        });
+      });
+    // this.setState({
+    //   id: this.state.id + 1,
+    //   todos: [...this.state.todos, todo]
+    // });
+  }
 
-    this.setState({
-      todos
-    });
+  toggleTodo(todo) {
+    apiCalls.toggleTodo(todo)
+      .then((updatedTodo) => {
+        const todos = this.state.todos.map((todo) => {
+          if(todo._id === updatedTodo._id) {
+            return {
+              ...todo,
+              complete: updatedTodo.complete,
+            }
+          }
+          return todo;
+        });
+        this.setState({
+          todos
+        });
+      });
   }
   
+  //Explore how to handle 'non-ID' IDs like 'abcd'
   deleteTodo(id) {
-    const todos = this.state.todos.filter((todo) => {
-      return todo.id !== id;
-    });
-
-    this.setState({
-      todos
-    });
+    apiCalls.deleteTodo(id)
+      .then(() => {
+        const todos = this.state.todos.filter((todo) => {
+          return todo._id !== id;
+        });
+    
+        this.setState({
+          todos
+        });
+      });
   }
 
   updateTodo(id, val) {
-    console.log('update');
-    const todos = this.state.todos.map((todo) => {
-      if(todo.id === id) {
-        return {
-          ...todo,
-          task: val,
-        }
-      }
-      return todo;
-    });
-
-    this.setState({
-      todos
-    });
+    apiCalls.updateTodo(id, val)
+      .then(() => {
+        const todos = this.state.todos.map((todo) => {
+          if(todo._id === id) {
+            return {
+              ...todo,
+              task: val,
+            }
+          }
+          return todo;
+        });
+    
+        this.setState({
+          todos
+        });
+      });  
   }
 
   toggleFilter() {
@@ -114,12 +139,12 @@ class TodoList extends Component {
       }
     }).map((todo) => (
       <Todo
-        key={todo.id}
-        id={todo.id}
+        key={todo._id}
+        id={todo._id}
         complete={todo.complete}
         task={todo.task}
-        toggleTodo={() => this.toggleTodo(todo.id)}
-        deleteTodo={() => this.deleteTodo(todo.id)}
+        toggleTodo={() => this.toggleTodo(todo)}
+        deleteTodo={() => this.deleteTodo(todo._id)}
         updateTodo={this.updateTodo}
       />
     ));
