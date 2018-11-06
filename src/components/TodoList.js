@@ -4,13 +4,14 @@ import Todo from './Todo';
 import TodoForm from './TodoForm';
 import Button from './Button';
 import * as apiCalls from '../api.js';
-
+import { connect } from 'react-redux';
+import { getTodos, addTodo, editTodo, toggleTodo, deleteTodo } from '../actions';
+ 
 class TodoList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      //id: 4,
       showAll: true,
       todos: []
       // todos: [
@@ -45,81 +46,83 @@ class TodoList extends Component {
   }
 
   componentDidMount() {
-    apiCalls.getTodos()
-      .then((todos) => {
-        this.setState({
-          todos
-        });
-      });
+
+    //this.props.getTodos();
+    // apiCalls.getTodos()
+    //   .then((todos) => {
+    //     this.setState({
+    //       todos
+    //     });
+    //   });
   }
 
   addTodo(task) {
-    // const todo = {
-    //   id: this.state.id,
-    //   task,
-    //   complete: false
-    // };
-    apiCalls.addTodo(task)
-      .then((todo) => {
-        this.setState({
-          todos: [...this.state.todos, todo]
-        });
-      });
-    // this.setState({
-    //   id: this.state.id + 1,
-    //   todos: [...this.state.todos, todo]
-    // });
+    const todo = {
+      id: 50,
+      task,
+      complete: false
+    }
+    this.props.addTodo(todo);
+    // apiCalls.addTodo(task)
+    //   .then((todo) => {
+    //     this.setState({
+    //       todos: [...this.state.todos, todo]
+    //     });
+    //   });
   }
 
   toggleTodo(todo) {
-    apiCalls.toggleTodo(todo)
-      .then((updatedTodo) => {
-        const todos = this.state.todos.map((todo) => {
-          if(todo._id === updatedTodo._id) {
-            return {
-              ...todo,
-              complete: updatedTodo.complete,
-            }
-          }
-          return todo;
-        });
-        this.setState({
-          todos
-        });
-      });
+    this.props.toggleTodo(todo);
+    // apiCalls.toggleTodo(todo)
+    //   .then((updatedTodo) => {
+    //     const todos = this.state.todos.map((todo) => {
+    //       if(todo._id === updatedTodo._id) {
+    //         return {
+    //           ...todo,
+    //           complete: updatedTodo.complete,
+    //         }
+    //       }
+    //       return todo;
+    //     });
+    //     this.setState({
+    //       todos
+    //     });
+    //   });
   }
   
   //Explore how to handle 'non-ID' IDs like 'abcd'
   deleteTodo(id) {
-    apiCalls.deleteTodo(id)
-      .then(() => {
-        const todos = this.state.todos.filter((todo) => {
-          return todo._id !== id;
-        });
+    this.props.deleteTodo(id);
+    // apiCalls.deleteTodo(id)
+    //   .then(() => {
+    //     const todos = this.state.todos.filter((todo) => {
+    //       return todo._id !== id;
+    //     });
     
-        this.setState({
-          todos
-        });
-      });
+    //     this.setState({
+    //       todos
+    //     });
+    //   });
   }
 
   updateTodo(id, val) {
-    apiCalls.updateTodo(id, val)
-      .then(() => {
-        const todos = this.state.todos.map((todo) => {
-          if(todo._id === id) {
-            return {
-              ...todo,
-              task: val,
-            }
-          }
-          return todo;
-        });
+    this.props.editTodo(id, val);
+    // apiCalls.updateTodo(id, val)
+    //   .then(() => {
+    //     const todos = this.state.todos.map((todo) => {
+    //       if(todo._id === id) {
+    //         return {
+    //           ...todo,
+    //           task: val,
+    //         }
+    //       }
+    //       return todo;
+    //     });
     
-        this.setState({
-          todos
-        });
-      });  
+    //     this.setState({
+    //       todos
+    //     });
+    //   });  
   }
 
   toggleFilter() {
@@ -130,8 +133,8 @@ class TodoList extends Component {
 
   render() {
 
-    const { showAll } = this.state;
-    const todos = this.state.todos.filter((todo) => {
+    const { showAll } = this.props;
+    const todos = this.props.todos.filter((todo) => {
       if(showAll) {
         return todo;
       } else {
@@ -175,4 +178,19 @@ class TodoList extends Component {
   }
 }
 
-export default TodoList;
+function mapStateToProps(state) {
+  return {
+    showAll: state.showAll,
+    todos: state.todos
+  };
+}
+
+const mapDispatchToProps = {
+  getTodos,
+  addTodo,
+  editTodo,
+  toggleTodo,
+  deleteTodo
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
