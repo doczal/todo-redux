@@ -2,7 +2,8 @@ export const ADD_TODO = 'ADD_TODO',
       GET_TODOS = 'GET_TODOS',
       TOGGLE_TODO = 'TOGGLE_TODO',
       EDIT_TODO = 'EDIT_TODO',
-      DELETE_TODO = 'DELETE_TODO';
+      DELETE_TODO = 'DELETE_TODO',
+      TOGGLE_FILTER = 'TOGGLE_FILTER';
 
 export function getTodos() {
   return {
@@ -36,5 +37,11 @@ export function deleteTodo(id) {
   return {
     type: DELETE_TODO,
     id
+  };
+}
+
+export function toggleFilter() {
+  return {
+    type: TOGGLE_FILTER
   };
 }

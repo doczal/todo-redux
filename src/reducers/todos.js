@@ -1,22 +1,22 @@
 const initialTodos = [{
   task: 'Read a book',
   complete: false,
-  id: 0,
+  _id: 0,
 },
 {
   task: 'Do the laundry',
   complete: false,
-  id: 1,
+  _id: 1,
 },
 {
   task: 'Walk the dog',
   complete: true,
-  id: 2,
+  _id: 2,
 },
 {
   task: 'Kill all',
   complete: false,
-  id: 3,
+  _id: 3,
 }];
 
 function todos(state=initialTodos, action) {
@@ -31,7 +31,7 @@ function todos(state=initialTodos, action) {
         if(todo._id === action.todo._id) {
           return {
             ...todo,
-            complete: action.todo.complete,
+            complete: !action.todo.complete,
           }
         }
         return todo;

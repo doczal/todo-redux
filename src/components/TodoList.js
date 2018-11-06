@@ -5,7 +5,7 @@ import TodoForm from './TodoForm';
 import Button from './Button';
 import * as apiCalls from '../api.js';
 import { connect } from 'react-redux';
-import { getTodos, addTodo, editTodo, toggleTodo, deleteTodo } from '../actions';
+import { getTodos, addTodo, editTodo, toggleTodo, deleteTodo, toggleFilter } from '../actions';
  
 class TodoList extends Component {
   constructor(props) {
@@ -58,7 +58,7 @@ class TodoList extends Component {
 
   addTodo(task) {
     const todo = {
-      id: 50,
+      _id: 50,
       task,
       complete: false
     }
@@ -126,9 +126,7 @@ class TodoList extends Component {
   }
 
   toggleFilter() {
-    this.setState({
-      showAll: !this.state.showAll
-    });
+    this.props.toggleFilter();
   }
 
   render() {
@@ -190,7 +188,8 @@ const mapDispatchToProps = {
   addTodo,
   editTodo,
   toggleTodo,
-  deleteTodo
+  deleteTodo,
+  toggleFilter
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
