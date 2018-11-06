@@ -47,32 +47,32 @@ class TodoList extends Component {
 
   componentDidMount() {
 
-    //this.props.getTodos();
-    // apiCalls.getTodos()
-    //   .then((todos) => {
-    //     this.setState({
-    //       todos
-    //     });
-    //   });
+    
+    apiCalls.getTodos()
+      .then((todos) => {
+        this.props.getTodos(todos);
+      });
   }
 
   addTodo(task) {
-    const todo = {
-      _id: 50,
-      task,
-      complete: false
-    }
-    this.props.addTodo(todo);
-    // apiCalls.addTodo(task)
-    //   .then((todo) => {
-    //     this.setState({
-    //       todos: [...this.state.todos, todo]
-    //     });
-    //   });
+    // const todo = {
+    //   _id: 50,
+    //   task,
+    //   complete: false
+    // }
+    // this.props.addTodo(todo);
+    apiCalls.addTodo(task)
+      .then((todo) => {
+        this.props.addTodo(todo);
+      });
   }
 
   toggleTodo(todo) {
-    this.props.toggleTodo(todo);
+    apiCalls.toggleTodo(todo)
+      .then((updatedTodo) => {
+        this.props.toggleTodo(updatedTodo);
+      });
+    
     // apiCalls.toggleTodo(todo)
     //   .then((updatedTodo) => {
     //     const todos = this.state.todos.map((todo) => {
@@ -92,7 +92,10 @@ class TodoList extends Component {
   
   //Explore how to handle 'non-ID' IDs like 'abcd'
   deleteTodo(id) {
-    this.props.deleteTodo(id);
+    apiCalls.deleteTodo(id)
+      .then(() => {
+        this.props.deleteTodo(id);
+      });
     // apiCalls.deleteTodo(id)
     //   .then(() => {
     //     const todos = this.state.todos.filter((todo) => {
@@ -106,7 +109,11 @@ class TodoList extends Component {
   }
 
   updateTodo(id, val) {
-    this.props.editTodo(id, val);
+    apiCalls.updateTodo(id, val)
+      .then(() => {
+        this.props.editTodo(id, val);
+      });
+    
     // apiCalls.updateTodo(id, val)
     //   .then(() => {
     //     const todos = this.state.todos.map((todo) => {

@@ -19,8 +19,10 @@ const initialTodos = [{
   _id: 3,
 }];
 
-function todos(state=initialTodos, action) {
+function todos(state=[], action) {
   switch(action.type) {
+    case 'GET_TODOS':
+      return action.todos;
     case 'ADD_TODO':
       return [
         ...state,
@@ -31,7 +33,7 @@ function todos(state=initialTodos, action) {
         if(todo._id === action.todo._id) {
           return {
             ...todo,
-            complete: !action.todo.complete,
+            complete: action.todo.complete,
           }
         }
         return todo;

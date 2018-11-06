@@ -5,9 +5,10 @@ export const ADD_TODO = 'ADD_TODO',
       DELETE_TODO = 'DELETE_TODO',
       TOGGLE_FILTER = 'TOGGLE_FILTER';
 
-export function getTodos() {
+export function getTodos(todos) {
   return {
     type: GET_TODOS,
+    todos
   };
 }
 
